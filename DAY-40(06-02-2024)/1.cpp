@@ -1,17 +1,21 @@
-// https://leetcode.com/problems/group-anagrams/?envType=daily-question&envId=2024-02-06
+// https://leetcode.com/problems/sort-characters-by-frequency/?envType=daily-question&envId=2024-02-07
 class Solution {
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        unordered_map<string,vector<string>> m;
-        for(int i=0;i<strs.size();i++)
-        {
-            string temp = strs[i];
-            sort(temp.begin(),temp.end());
-            m[temp].push_back(strs[i]);
-        }
-        vector<vector<string>> ans;
+    static bool cmp(pair<char,int> &a,pair<char,int> &b)
+    {
+        return a.second>b.second;
+    }
+    string frequencySort(string s) {
+        unordered_map<char,int> m;
+        for(auto i : s)
+            m[i]++;
+        vector<pair<char,int>> v;
         for(auto i : m)
-            ans.push_back(i.second);
+            v.push_back(i);
+        sort(v.begin(),v.end(),cmp);
+        string ans;
+        for(auto i:v)
+            ans += string(i.second,i.first);
         return ans;
     }
 };
